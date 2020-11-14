@@ -159,3 +159,70 @@ print(vol.meta['sampling'])
 # Result: (81.75000000000003, 499.999744, 499.999744)
 # Rounded off
 (82, 500, 500)
+
+#Sample Guide
+
+# Plotting multiple images at once
+
+# plt.subplots - creates a figure canvas with multiple AxesSubplots objects.
+
+import imageio
+vol = imageio.volread('chest-data')
+fig, axes = plt.subplots(nrows=1, ncols=3)
+axes[0].imshow(vol[0],cmap='gray')
+axes[1].imshow(vol[10],cmap='gray')
+axes[2].imshow(vol[20],cmap='gray')
+for ax in axes:
+    ax.axis('off')
+plt.show()
+
+# Non-standard views
+import imageio
+
+vol = imageio.volread('chest-data')
+views_1v2 = vol[pln, :, :]
+views_1v2 = vol[pln]
+view_0v2 = vol[:, row, :]
+view_0v1 = vol[:, :, col]
+
+# Modifying the aspect ratio 
+im = vol[:,:,100]
+d0, d1, d2 = vol.meta['sampling']
+d0, d1, d2
+# Result: (2, 0.5, 0.5)
+
+asp = d0 / d1
+asp
+# Result: 3
+
+plt.imshow(im, cmap='gray', aspect=asp)
+plt.show()
+
+#Ex7
+# Import PyPlot
+import matplotlib.pyplot as plt
+
+# Initialize figure and axes grid
+fig, axes = plt.subplots(nrows=2, ncols=1)
+
+# Draw an image on each subplot
+axes[0].imshow(im1, cmap='gray')
+axes[1].imshow(im2, cmap='gray')
+
+# Remove ticks/labels and render
+axes[0].axis('off')
+axes[1].axis('off')
+plt.show()
+
+#Ex8
+# Plot the images on a subplots array 
+fig, axes = plt.subplots(nrows=1, ncols=4)
+
+# Loop through subplots and draw image
+for ii in range(4):
+    im = vol[ii * 40, :, :]
+    axes[ii].imshow(im, cmap='gray')
+    axes[ii].axis('off')
+
+# Render the figure
+plt.show()
