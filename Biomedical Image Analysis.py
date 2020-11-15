@@ -123,7 +123,7 @@ im3 = imageio.imread('chest-222.dcm')
 vol = np.stack([im1, im2, im3])
 print('Volume dimensions:', vol.shape)
 
-#Ex5
+# Ex5
 # Import ImageIO
 import imageio
 
@@ -147,7 +147,7 @@ print (vol.meta['StudyTime'])
 print (vol.meta['Manufacturer'])
 # Result: GE MEDICAL SYSTEMS
 
-#EX6
+# EX6
 print(vol.shape)
 # Result: (25, 512, 512)
 
@@ -198,7 +198,7 @@ asp
 plt.imshow(im, cmap='gray', aspect=asp)
 plt.show()
 
-#Ex7
+# Ex7
 # Import PyPlot
 import matplotlib.pyplot as plt
 
@@ -225,4 +225,20 @@ for ii in range(4):
     axes[ii].axis('off')
 
 # Render the figure
+plt.show()
+
+# Ex8
+# Select frame from "vol"
+im1 = vol[:, 256, :]
+im2 = vol[:, :, 256]
+
+# Compute aspect ratios
+d0, d1, d2 = vol.meta['sampling']
+asp1 = d0 / d2
+asp2 = d0 / d1
+
+# Plot the images on a subplots array 
+fig, axes = plt.subplots(nrows=2, ncols=1)
+axes[0].imshow(im1, cmap='gray', aspect=3.3484817144226335)
+axes[1].imshow(im2, cmap='gray', aspect=3.3484817144226335)
 plt.show()
